@@ -35,6 +35,8 @@ var health = 100
 
 var UI_status_label
 
+var reloading_weapon = false
+
 func _ready():
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
@@ -68,6 +70,14 @@ func _physics_process(delta):
 	process_movement(delta)
 	process_changing_weapons(delta)
 	process_UI(delta)
+	process_reloading(delta)
+
+func process_reloading(delta):
+	if reloading_weapon == true:
+		var current_weapon = weapons[current_weapon_name]
+		if current_weapon != null:
+			current_weapon.reload_weapon()
+		reloading_weapon = false
 
 func process_UI(delta):
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
@@ -117,6 +127,37 @@ func fire_bullet():
 
 func process_input(delta):
 # ----------------------------------
+# Reloading
+	if reloading_weapon == false:
+		if changing_weapon == false:
+			if Input.is_action_just_pressed("reload"):
+				var current_weapon = weapons[current_weapon_name]
+				if current_weapon != null:
+					if current_weapon.CAN_RELOAD == true:
+						var current_anim_state = animation_manager.current_state
+						var is_reloading = false
+						for weapon in weapons:
+							var weapon_node = weapons[weapon]
+							if weapon_node != null:
+								if current_anim_state == weapon_node.RELOADING_ANIM_NAME:
+									is_reloading = true
+						if is_reloading == false:
+							reloading_weapon = true
+# ----------------------------------
+# ----------------------------------
+# Firing the weapons
+	if Input.is_action_pressed("fire"):
+		if reloading_weapon == false:
+			if changing_weapon == false:
+				var current_weapon = weapons[current_weapon_name]
+				if current_weapon != null:
+					if current_weapon.ammo_in_weapon > 0:
+						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+					else:
+						reloading_weapon = true
+# ----------------------------------
+# ----------------------------------
 # Firing the weapons
 	if Input.is_action_pressed("fire"):
 		if changing_weapon == false:
@@ -150,6 +191,11 @@ func process_input(delta):
 		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true
+	if changing_weapon == false:
+		if reloading_weapon == false:
+			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
+				changing_weapon = true
 # ----------------------------------
 
 # ----------------------------------
