@@ -20,7 +20,7 @@ const MAX_SLOPE_ANGLE = 40
 var camera
 var rotation_helper
 
-var MOUSE_SENSITIVITY = 0.1
+var MOUSE_SENSITIVITY = 0.5
 
 var animation_manager
 
