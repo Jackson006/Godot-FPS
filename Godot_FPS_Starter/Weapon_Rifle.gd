@@ -9,12 +9,17 @@ var is_weapon_enabled = false
 
 var player_node = null
 
+var ammo_in_weapon = 50
+var spare_ammo = 100
+const AMMO_IN_MAG = 50
+
 func _ready():
 	pass
 
 func fire_weapon():
 	var ray = $Ray_Cast
 	ray.force_raycast_update()
+	ammo_in_weapon -= 1
 
 	if ray.is_colliding():
 		var body = ray.get_collider()
