@@ -67,6 +67,15 @@ func _physics_process(delta):
 	process_input(delta)
 	process_movement(delta)
 	process_changing_weapons(delta)
+	process_UI(delta)
+
+func process_UI(delta):
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
+		UI_status_label.text = "HEALTH: " + str(health)
+	else:
+		var current_weapon = weapons[current_weapon_name]
+		UI_status_label.text = "HEALTH: " + str(health) + \
+			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
 func process_changing_weapons(delta):
 	if changing_weapon == true:
@@ -107,6 +116,16 @@ func fire_bullet():
 	weapons[current_weapon_name].fire_weapon()
 
 func process_input(delta):
+# ----------------------------------
+# Firing the weapons
+	if Input.is_action_pressed("fire"):
+		if changing_weapon == false:
+			var current_weapon = weapons[current_weapon_name]
+			if current_weapon != null:
+				if current_weapon.ammo_in_weapon > 0:
+					if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+						animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+# ----------------------------------
 # ----------------------------------
 # Changing weapons.
 	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
