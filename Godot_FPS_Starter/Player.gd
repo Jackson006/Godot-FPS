@@ -37,6 +37,8 @@ var UI_status_label
 
 var reloading_weapon = false
 
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
+
 func _ready():
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper

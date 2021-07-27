@@ -2,9 +2,9 @@ extends Spatial
 
 # All of the audio files.
 # You will need to provide your own sound files.
-var audio_pistol_shot = preload("res://path_to_your_audio_here")
-var audio_gun_cock = preload("res://path_to_your_audio_here")
-var audio_rifle_shot = preload("res://path_to_your_audio_here")
+var audio_pistol_shot = preload("res://Blast Laser 2.wav")
+var audio_gun_cock = preload("res://WEAPON CLICK Reload Mechanism 01.wav")
+var audio_rifle_shot = preload("res://Big Blast 4.wav")
 
 var audio_node = null
 
