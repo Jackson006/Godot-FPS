@@ -1,5 +1,6 @@
 extends Spatial
 
+# All variables are the same as the pistol
 const DAMAGE = 4
 
 const IDLE_ANIM_NAME = "Rifle_idle"
@@ -22,9 +23,9 @@ func _ready():
 	pass
 
 func fire_weapon():
-	var ray = $Ray_Cast
-	ray.force_raycast_update()
-	ammo_in_weapon -= 1
+	var ray = $Ray_Cast # is a child of the rifle point
+	ray.force_raycast_update() #forces the raycast to detect collisions
+	ammo_in_weapon -= 1 #reduces the ammo of the gun after firing
 
 	if ray.is_colliding():
 		var body = ray.get_collider()
