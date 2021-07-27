@@ -39,6 +39,12 @@ var reloading_weapon = false
 
 var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
 
+func create_sound(sound_name, position=null):
+	var audio_clone = simple_audio_player.instance()
+	var scene_root = get_tree().root.get_children()[0]
+	scene_root.add_child(audio_clone)
+	audio_clone.play_sound(sound_name, position)
+
 func _ready():
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
