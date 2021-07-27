@@ -1,26 +1,26 @@
 extends KinematicBody
 
-const GRAVITY = -50
-var vel = Vector3()
-const MAX_SPEED = 30
-const JUMP_SPEED = 27
-const ACCEL = 7
+const GRAVITY = -50 # How strong gravity pulls down
+var vel = Vector3() # The Kinematic body's velocity
+const MAX_SPEED = 30 # The max speed the kinematic body can reach without sprinting
+const JUMP_SPEED = 27 # How high the kinematic body can jump
+const ACCEL = 7 # How quickly we can reach the max walking speed
 
-const MAX_SPRINT_SPEED = 50
-const SPRINT_ACCEL = 18
-var is_sprinting = false
+const MAX_SPRINT_SPEED = 50 # The max speed the kinematic body can reach while sprinting
+const SPRINT_ACCEL = 18 # How quickly the max sprint speed can be reached
+var is_sprinting = false # a boolean to track whether the player is currently sprinting
 
-var flashlight
+var flashlight # the variable that hold's the player's flash light node
 
 var dir = Vector3()
 
-const DEACCEL= 16
-const MAX_SLOPE_ANGLE = 40
+const DEACCEL= 16 # How quickly the kniematic body can completely stop
+const MAX_SLOPE_ANGLE = 40 # The steepest angle the kinematic body sees as floor
 
-var camera
-var rotation_helper
+var camera # the camera node
+var rotation_helper # holds everything on the x-axis in place
 
-var MOUSE_SENSITIVITY = 0.5
+var MOUSE_SENSITIVITY = 0.5 # The sensitivity of the mouse in game
 
 var animation_manager
 
@@ -71,7 +71,7 @@ func _ready():
 	changing_weapon_name = "UNARMED"
 
 	UI_status_label = $HUD/Panel/Gun_label
-	flashlight = $Rotation_Helper/Flashlight
+	flashlight = $Rotation_Helper/Flashlight # get's the flashlight noed and assigns it to the variable
 
 func _physics_process(delta):
 	process_input(delta)
@@ -219,18 +219,18 @@ func process_input(delta):
 
 	# ----------------------------------
 	# Sprinting
-	if Input.is_action_pressed("movement_sprint"):
+	if Input.is_action_pressed("movement_sprint"): # when this is true the player is sprinting
 		is_sprinting = true
-	else:
+	else: # When this is false the player isn't sprinting
 		is_sprinting = false
 # ----------------------------------
 
 # ----------------------------------
 # Turning the flashlight on/off
-	if Input.is_action_just_pressed("flashlight"):
+	if Input.is_action_just_pressed("flashlight"): # When the flashlight action button is pressed turn the flashlight on
 		if flashlight.is_visible_in_tree():
-			flashlight.hide()
-		else:
+			flashlight.hide() # When this is false turn the flashlight off
+		else: 
 			flashlight.show()
 # ----------------------------------
 
@@ -241,16 +241,16 @@ func process_input(delta):
 
 	var input_movement_vector = Vector2()
 
-	if Input.is_action_pressed("movement_forward"):
+	if Input.is_action_pressed("movement_forward"): # The forward movement speed of the kinematic body
 		input_movement_vector.y += 1
-	if Input.is_action_pressed("movement_backward"):
+	if Input.is_action_pressed("movement_backward"): # The backward movement speed of the kinematic body
 		input_movement_vector.y -= 1
-	if Input.is_action_pressed("movement_left"):
+	if Input.is_action_pressed("movement_left"): # The left movement speed of the kinematic body
 		input_movement_vector.x -= 1
-	if Input.is_action_pressed("movement_right"):
+	if Input.is_action_pressed("movement_right"): # The right movement speed of the kinematic body
 		input_movement_vector.x += 1
 
-	input_movement_vector = input_movement_vector.normalized()
+	input_movement_vector = input_movement_vector.normalized() # The virtual axis
 
 	# Basis vectors are already normalized.
 	dir += -cam_xform.basis.z * input_movement_vector.y
@@ -274,21 +274,21 @@ func process_input(delta):
 	# ----------------------------------
 
 func process_movement(delta):
-	dir.y = 0
-	dir = dir.normalized()
+	dir.y = 0 # ensures that dir does not have any movement on the y-axis
+	dir = dir.normalized() # Makes sure we're moving at a  constant speed
 
-	vel.y += delta * GRAVITY
+	vel.y += delta * GRAVITY # adds gravity to the player's velocity
 
-	var hvel = vel
+	var hvel = vel # assigns velocity to a new variable
 	hvel.y = 0
 
-	var target = dir
-	if is_sprinting:
-			target *= MAX_SPRINT_SPEED
+	var target = dir # let's us know how far the player is moving in a direction
+	if is_sprinting: 
+			target *= MAX_SPRINT_SPEED # the sprinting speed
 	else:
-			target *= MAX_SPEED
+			target *= MAX_SPEED # the walking speed
 
-	var accel
+	var accel # determines the accelerator dependent on whether the player is sprinting or not
 	if dir.dot(hvel) > 0:
 		if is_sprinting:
 			accel = SPRINT_ACCEL
@@ -297,12 +297,12 @@ func process_movement(delta):
 	else:
 		accel = DEACCEL
 
-	hvel = hvel.linear_interpolate(target, accel * delta)
+	hvel = hvel.linear_interpolate(target, accel * delta) # Checks to see which direction the player is moving in
 	vel.x = hvel.x
 	vel.z = hvel.z
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
-func _input(event):
+func _input(event): # keeps the mouse on the screen
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
