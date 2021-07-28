@@ -99,25 +99,25 @@ func process_UI(delta):
 			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
 func process_changing_weapons(delta):
-	if changing_weapon == true: #
+	if changing_weapon == true: # has there been an input to change weapons
 
-		var weapon_unequipped = false
-		var current_weapon = weapons[current_weapon_name]
+		var weapon_unequipped = false # checks to see whether the weapon was succesfulley equipped
+		var current_weapon = weapons[current_weapon_name] # finds the current weapon being used
 
-		if current_weapon == null:
-			weapon_unequipped = true
+		if current_weapon == null: # Cheks whether the weapon is enabled
+			weapon_unequipped = true # calls the unequip weapon function
 		else:
-			if current_weapon.is_weapon_enabled == true:
+			if current_weapon.is_weapon_enabled == true: 
 				weapon_unequipped = current_weapon.unequip_weapon()
 			else:
 				weapon_unequipped = true
 	
-		if weapon_unequipped == true:
+		if weapon_unequipped == true: # if the player has successfully unequipped the weapon
 	
-			var weapon_equipped = false
-			var weapon_to_equip = weapons[changing_weapon_name]
+			var weapon_equipped = false #new variable for tracking equipped guns
+			var weapon_to_equip = weapons[changing_weapon_name] # The weapon the player wants to change to
 	
-			if weapon_to_equip == null:
+			if weapon_to_equip == null: # checks to see whether or not the weapon is enabled
 				weapon_equipped = true
 			else:
 				if weapon_to_equip.is_weapon_enabled == false:
@@ -125,12 +125,12 @@ func process_changing_weapons(delta):
 				else:
 					weapon_equipped = true
 	
-				if weapon_equipped == true:
+				if weapon_equipped == true: # check to see if the player has successfully equipped the weapon
 					changing_weapon = false
 					current_weapon_name = changing_weapon_name
 					changing_weapon_name = ""
 
-func fire_bullet():
+func fire_bullet(): # plays the appropriate animation of the bullet
 	if changing_weapon == true:
 		return
 
@@ -198,12 +198,12 @@ func process_input(delta):
 	if Input.is_action_just_pressed("shift_weapon_negative"): # subtracts 
 		weapon_change_number -= 1
 
-	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1)
+	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1) # The mximum number of weapons the player can chose from
 
-	if changing_weapon == false:
-		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
+	if changing_weapon == false: #Checks to see if the player is changing weapons
+		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name: # Check to see if the player wants to change weapons
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
-			changing_weapon = true
+			changing_weapon = true # if the payer wants to change weapons, change to true
 	if changing_weapon == false:
 		if reloading_weapon == false:
 			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
@@ -213,11 +213,11 @@ func process_input(delta):
 
 # ----------------------------------
 # Firing the weapons
-	if Input.is_action_pressed("fire"):
-		if changing_weapon == false:
-			var current_weapon = weapons[current_weapon_name]
+	if Input.is_action_pressed("fire"): # Checks to see if the fire button has been pressed
+		if changing_weapon == false: #Checks to see if the player is changing weapons 
+			var current_weapon = weapons[current_weapon_name] # gets the node for the current weapon
 			if current_weapon != null:
-				if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
+				if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME: # Happens if the player is not moving 
 					animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
 # ----------------------------------
 
