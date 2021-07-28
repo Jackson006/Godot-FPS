@@ -1,5 +1,6 @@
 extends Spatial
 
+# variables same as other weapons 
 const DAMAGE = 40
 
 const IDLE_ANIM_NAME = "Knife_idle"
@@ -22,14 +23,14 @@ func _ready():
 	pass
 
 func fire_weapon():
-	var area = $Area
-	var bodies = area.get_overlapping_bodies()
+	var area = $Area # gets the area child node of the knife point
+	var bodies = area.get_overlapping_bodies() # gets the collisions inside the body
 
-	for body in bodies:
+	for body in bodies: # checks to see if the body is the player
 		if body == player_node:
-			continue
+			continue # continues the code if the body is not the player
 
-		if body.has_method("bullet_hit"):
+		if body.has_method("bullet_hit"): # if the knife hits it assigns damage
 			body.bullet_hit(DAMAGE, area.global_transform)
 
 func equip_weapon():

@@ -22,18 +22,18 @@ var rotation_helper # holds everything on the x-axis in place
 
 var MOUSE_SENSITIVITY = 0.5 # The sensitivity of the mouse in game
 
-var animation_manager
+var animation_manager # holds the animation player node and its script
 
-var current_weapon_name = "UNARMED"
-var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null}
-const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"}
-const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3}
-var changing_weapon = false
-var changing_weapon_name = "UNARMED"
+var current_weapon_name = "UNARMED" # The name of the weapon currently being used
+var weapons = {"UNARMED":null, "KNIFE":null, "PISTOL":null, "RIFLE":null} # A dictionary that hods the weapon nodes
+const WEAPON_NUMBER_TO_NAME = {0:"UNARMED", 1:"KNIFE", 2:"PISTOL", 3:"RIFLE"} # A dictionary that converts a weapon's number to its name (helpful for changing weapons)
+const WEAPON_NAME_TO_NUMBER = {"UNARMED":0, "KNIFE":1, "PISTOL":2, "RIFLE":3} # A dictionary that converts a weapon's name to its number (helpful for changing weapons)
+var changing_weapon = false # a boolean to track whether or not we are changing weapons
+var changing_weapon_name = "UNARMED" #The name of the weapon we want to change to 
 
-var health = 100
+var health = 100 # the health of the player
 
-var UI_status_label
+var UI_status_label # A label to show how much health we have, and how much ammo we have in our gun and in reserve
 
 var reloading_weapon = false
 
@@ -46,39 +46,42 @@ func create_sound(sound_name, position=null):
 	audio_clone.play_sound(sound_name, position)
 
 func _ready():
-	camera = $Rotation_Helper/Camera
+	camera = $Rotation_Helper/Camera #
 	rotation_helper = $Rotation_Helper
 
-	animation_manager = $Rotation_Helper/Model/Animation_Player
-	animation_manager.callback_function = funcref(self, "fire_bullet")
+	animation_manager = $Rotation_Helper/Model/Animation_Player 
+	animation_manager.callback_function = funcref(self, "fire_bullet") # calls the player's fire bullet function
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+# Assigns all of the weapons as actual weapons, this allows us to access the weapon nodes with only their names
 	weapons["KNIFE"] = $Rotation_Helper/Gun_Fire_Points/Knife_Point
 	weapons["PISTOL"] = $Rotation_Helper/Gun_Fire_Points/Pistol_Point
 	weapons["RIFLE"] = $Rotation_Helper/Gun_Fire_Points/Rifle_Point
 
-	var gun_aim_point_pos = $Rotation_Helper/Gun_Aim_Point.global_transform.origin
+	var gun_aim_point_pos = $Rotation_Helper/Gun_Aim_Point.global_transform.origin # let's us rotate the player's weapons to aim at it
 
 	for weapon in weapons:
 		var weapon_node = weapons[weapon]
-		if weapon_node != null:
+		if weapon_node != null: # If the weapon node is not null, we then set its player_node variable to this script
 			weapon_node.player_node = self
-			weapon_node.look_at(gun_aim_point_pos, Vector3(0, 1, 0))
+			weapon_node.look_at(gun_aim_point_pos, Vector3(0, 1, 0)) # rotates the gun's aim
 			weapon_node.rotate_object_local(Vector3(0, 1, 0), deg2rad(180))
 
+# current weapons being used are none
 	current_weapon_name = "UNARMED"
 	changing_weapon_name = "UNARMED"
 
+# The UI label from the HUD
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight # get's the flashlight noed and assigns it to the variable
 
 func _physics_process(delta):
-	process_input(delta)
-	process_movement(delta)
-	process_changing_weapons(delta)
-	process_UI(delta)
-	process_reloading(delta)
+	process_input(delta) # input controls eg. spacebar WASD
+	process_movement(delta) # player movement 
+	process_changing_weapons(delta) # Weapon changing
+	process_UI(delta) # What is shown to the player in the form as a HUD
+	process_reloading(delta) # Reloading the weapons
 
 func process_reloading(delta):
 	if reloading_weapon == true:
@@ -96,7 +99,7 @@ func process_UI(delta):
 			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
 
 func process_changing_weapons(delta):
-	if changing_weapon == true:
+	if changing_weapon == true: #
 
 		var weapon_unequipped = false
 		var current_weapon = weapons[current_weapon_name]
@@ -177,8 +180,9 @@ func process_input(delta):
 # ----------------------------------
 # ----------------------------------
 # Changing weapons.
-	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name]
+	var weapon_change_number = WEAPON_NAME_TO_NUMBER[current_weapon_name] # get's the current weapon's number and assigns it to this function
 
+# the key map values
 	if Input.is_key_pressed(KEY_1):
 		weapon_change_number = 0
 	if Input.is_key_pressed(KEY_2):
@@ -188,9 +192,10 @@ func process_input(delta):
 	if Input.is_key_pressed(KEY_4):
 		weapon_change_number = 3
 
-	if Input.is_action_just_pressed("shift_weapon_positive"):
+# checks to see is the weapon is being changed or not
+	if Input.is_action_just_pressed("shift_weapon_positive"): # adds 
 		weapon_change_number += 1
-	if Input.is_action_just_pressed("shift_weapon_negative"):
+	if Input.is_action_just_pressed("shift_weapon_negative"): # subtracts 
 		weapon_change_number -= 1
 
 	weapon_change_number = clamp(weapon_change_number, 0, WEAPON_NUMBER_TO_NAME.size() - 1)

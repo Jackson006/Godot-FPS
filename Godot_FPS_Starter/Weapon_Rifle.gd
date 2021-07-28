@@ -28,13 +28,13 @@ func fire_weapon():
 	ammo_in_weapon -= 1 #reduces the ammo of the gun after firing
 
 	if ray.is_colliding():
-		var body = ray.get_collider()
-		player_node.create_sound("Rifle_shot", ray.global_transform.origin)
+		var body = ray.get_collider() # assign damage
+		player_node.create_sound("Rifle_shot", ray.global_transform.origin) # Plays the sound of the rifle firing
 
-		if body == player_node:
+		if body == player_node: # if the body hit is the player node pass
 			pass
-		elif body.has_method("bullet_hit"):
-			body.bullet_hit(DAMAGE, ray.global_transform)
+		elif body.has_method("bullet_hit"): # if bullet hits assign damage
+			body.bullet_hit(DAMAGE, ray.global_transform) 
 
 
 func equip_weapon():
