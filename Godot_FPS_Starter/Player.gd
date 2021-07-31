@@ -37,13 +37,19 @@ var UI_status_label # A label to show how much health we have, and how much ammo
 
 var reloading_weapon = false # A variable to track whether or not the player is currently trying to reload
 
-var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
+var simple_audio_player = preload("res://Simple_Audio_Player.tscn") # A variable to place the audio scene
+
+var JOYPAD_SENSITIVITY = 2 # how fast the joysticks will move the camera
+const JOYPAD_DEADZONE = 0.15 # The deadzone of the joypad
+
+var mouse_scroll_value = 0 # The value of the mouse scroll wheel
+const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08 # How much a single scroll action increases mouse_scroll_value
 
 func create_sound(sound_name, position=null):
-	var audio_clone = simple_audio_player.instance()
+	var audio_clone = simple_audio_player.instance() # instances the audio scene and assigns it a variable
 	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(audio_clone)
-	audio_clone.play_sound(sound_name, position)
+	scene_root.add_child(audio_clone) # adds newly created simple_audio_player scene to be a child of the scene root
+	audio_clone.play_sound(sound_name, position) # play's the designated audio
 
 func _ready():
 	camera = $Rotation_Helper/Camera #
@@ -82,6 +88,36 @@ func _physics_process(delta):
 	process_changing_weapons(delta) # Weapon changing
 	process_UI(delta) # What is shown to the player in the form as a HUD
 	process_reloading(delta) # Reloading the weapons
+	process_view_input(delta)
+
+func process_view_input(delta):
+# ----------------------------------
+# Joypad rotation
+
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED: # checks mouse mode
+		return
+
+	var joypad_vec = Vector2() # define vector2 to hold the right joystick position
+	if Input.get_connected_joypads().size() > 0:
+
+		if OS.get_name() == "Windows" or OS.get_name() == "X11":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 2), Input.get_joy_axis(0, 3))
+		elif OS.get_name() == "OSX":
+			joypad_vec = Vector2(Input.get_joy_axis(0, 3), Input.get_joy_axis(0, 4))
+
+		if joypad_vec.length() < JOYPAD_DEADZONE: # account for the joypad's deadzone
+			joypad_vec = Vector2(0, 0)
+		else:
+			joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+		rotation_helper.rotate_x(deg2rad(joypad_vec.y * JOYPAD_SENSITIVITY)) # rotates rotation_helper and the player's KinematicBody using joypad_vec 
+
+		rotate_y(deg2rad(joypad_vec.x * JOYPAD_SENSITIVITY * -1))
+
+		var camera_rot = rotation_helper.rotation_degrees
+		camera_rot.x = clamp(camera_rot.x, -70, 70)
+		rotation_helper.rotation_degrees = camera_rot
+# ----------------------------------
 
 func process_reloading(delta):
 	if reloading_weapon == true: # checks to see if the player is trying to reload
@@ -245,6 +281,22 @@ func process_input(delta):
 	if Input.is_action_pressed("movement_right"): # The right movement speed of the kinematic body
 		input_movement_vector.x += 1
 
+	if Input.get_connected_joypads().size() > 0: # checks to see if there is a connected joypad
+
+			var joypad_vec = Vector2(0, 0) # get left stick axes for right/left and up/down
+
+			if OS.get_name() == "Windows" or OS.get_name() == "X11":
+				joypad_vec = Vector2(Input.get_joy_axis(0, 0), -Input.get_joy_axis(0, 1))
+			elif OS.get_name() == "OSX":
+				joypad_vec = Vector2(Input.get_joy_axis(0, 1), Input.get_joy_axis(0, 2))
+
+			if joypad_vec.length() < JOYPAD_DEADZONE: # checks to see if the joypad vector length is within the JOYPAD_DEADZONE radius
+				joypad_vec = Vector2(0, 0) # If it is, set joypad_vec to an empty Vector2
+			else: # If it is not, use a scaled Radial Dead zone
+				joypad_vec = joypad_vec.normalized() * ((joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
+
+			input_movement_vector += joypad_vec # add joypad vec to input_movement_vector
+
 	input_movement_vector = input_movement_vector.normalized() # The virtual axis
 
 	# Basis vectors are already normalized.
@@ -305,3 +357,20 @@ func _input(event): # keeps the mouse on the screen
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
+
+	if event is InputEventMouseButton and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED: # checks if the event is an InputEventMouseButton event and that the mouse mode is MOUSE_MODE_CAPTURED
+		if event.button_index == BUTTON_WHEEL_UP or event.button_index == BUTTON_WHEEL_DOWN: # checks to see if the button index is either a Button_wheel_up or Button_wheel_down
+			if event.button_index == BUTTON_WHEEL_UP: # Based on whether it is up or down, add or subtract MOUSE_SENSITIVITY_SCROLL_WHEEL to/from mouse_scroll_value
+				mouse_scroll_value += MOUSE_SENSITIVITY_SCROLL_WHEEL
+			elif event.button_index == BUTTON_WHEEL_DOWN:
+				mouse_scroll_value -= MOUSE_SENSITIVITY_SCROLL_WHEEL
+
+			mouse_scroll_value = clamp(mouse_scroll_value, 0, WEAPON_NUMBER_TO_NAME.size() - 1) # clamps mouse scroll value
+
+			if changing_weapon == false: # checks to see if the player is changing weapons
+				if reloading_weapon == false: #checks to see if the player is reloading
+					var round_mouse_scroll_value = int(round(mouse_scroll_value)) # rounds mouse_scroll_value and casts it to an int
+					if WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] != current_weapon_name: # checks  to see if the weapon name at round_mouse_scroll_value is not equal to the current weapon name using WEAPON_NUMBER_TO_NAME
+						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] # assign changing_weapon_name to true so that so the player will change weapons
+						changing_weapon = true
+						mouse_scroll_value = round_mouse_scroll_value

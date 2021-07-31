@@ -78,8 +78,8 @@ func reload_weapon(): # exactly the same reloading code as the pistol
 			ammo_in_weapon += spare_ammo
 			spare_ammo = 0
 
-		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME) # play the reloading animation
+		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin) # play the reloading sound
 
 		return true
 
