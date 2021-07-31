@@ -35,7 +35,7 @@ var health = 100 # the health of the player
 
 var UI_status_label # A label to show how much health we have, and how much ammo we have in our gun and in reserve
 
-var reloading_weapon = false
+var reloading_weapon = false # A variable to track whether or not the player is currently trying to reload
 
 var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
 
@@ -84,11 +84,11 @@ func _physics_process(delta):
 	process_reloading(delta) # Reloading the weapons
 
 func process_reloading(delta):
-	if reloading_weapon == true:
-		var current_weapon = weapons[current_weapon_name]
-		if current_weapon != null:
+	if reloading_weapon == true: # checks to see if the player is trying to reload
+		var current_weapon = weapons[current_weapon_name] # checks the name of the current weapon 
+		if current_weapon != null: # if it is not null, reload the weapon
 			current_weapon.reload_weapon()
-		reloading_weapon = false
+		reloading_weapon = false # Once the player has reloaded, do not try to reload until the player presses the reload button
 
 func process_UI(delta):
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE": # check to see if the current weapon is unarmed or knife
@@ -139,44 +139,34 @@ func fire_bullet(): # plays the appropriate animation of the bullet
 func process_input(delta):
 # ----------------------------------
 # Reloading
-	if reloading_weapon == false:
-		if changing_weapon == false:
-			if Input.is_action_just_pressed("reload"):
-				var current_weapon = weapons[current_weapon_name]
-				if current_weapon != null:
-					if current_weapon.CAN_RELOAD == true:
-						var current_anim_state = animation_manager.current_state
-						var is_reloading = false
-						for weapon in weapons:
+	if reloading_weapon == false: # makes sure that the player isn't reloading or changing weapons
+		if changing_weapon == false: # if the player isn't reloading or changing weapons run the following code
+			if Input.is_action_just_pressed("reload"): # Checks to see if the reload button has been pressed
+				var current_weapon = weapons[current_weapon_name] # Checks the name of the weapon
+				if current_weapon != null: 
+					if current_weapon.CAN_RELOAD == true: # checks if the weapon can be reloaded
+						var current_anim_state = animation_manager.current_state # checks the current animation state
+						var is_reloading = false # a variable to see if the weapon is currently being reloaded
+						for weapon in weapons: # Checks the animation states of other weapons
 							var weapon_node = weapons[weapon]
 							if weapon_node != null:
-								if current_anim_state == weapon_node.RELOADING_ANIM_NAME:
+								if current_anim_state == weapon_node.RELOADING_ANIM_NAME: # If the player is not reloading any weapon, set reloading weapon to true
 									is_reloading = true
-						if is_reloading == false:
+						if is_reloading == false: 
 							reloading_weapon = true
 # ----------------------------------
 # ----------------------------------
 # Firing the weapons
-	if Input.is_action_pressed("fire"):
-		if reloading_weapon == false:
-			if changing_weapon == false:
-				var current_weapon = weapons[current_weapon_name]
-				if current_weapon != null:
-					if current_weapon.ammo_in_weapon > 0:
-						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
-							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+	if Input.is_action_pressed("fire"): # checks to see if the "fire" button has been pressed
+		if reloading_weapon == false: # Checks to see if the weapon is being reloaded
+			if changing_weapon == false: # checks to see if the player is changing weapons
+				var current_weapon = weapons[current_weapon_name] # a variable to check the current weapon's name
+				if current_weapon != null: 
+					if current_weapon.ammo_in_weapon > 0: # checks to see if there is not ammo in the weapon
+						if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME: # checks to see if the gun in idle animation
+							animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME) # plays the fire animation
 					else:
-						reloading_weapon = true
-# ----------------------------------
-# ----------------------------------
-# Firing the weapons
-	if Input.is_action_pressed("fire"):
-		if changing_weapon == false:
-			var current_weapon = weapons[current_weapon_name]
-			if current_weapon != null:
-				if current_weapon.ammo_in_weapon > 0:
-					if animation_manager.current_state == current_weapon.IDLE_ANIM_NAME:
-						animation_manager.set_animation(current_weapon.FIRE_ANIM_NAME)
+						reloading_weapon = true # reloads the weapon
 # ----------------------------------
 # ----------------------------------
 # Changing weapons.
@@ -204,8 +194,8 @@ func process_input(delta):
 		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name: # Check to see if the player wants to change weapons
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true # if the payer wants to change weapons, change to true
-	if changing_weapon == false:
-		if reloading_weapon == false:
+	if changing_weapon == false: # if the player is not changing weapons
+		if reloading_weapon == false: # The player cannot change weapons if they are reloding 
 			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
 				changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 				changing_weapon = true

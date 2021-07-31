@@ -6,6 +6,7 @@ const DAMAGE = 40
 const IDLE_ANIM_NAME = "Knife_idle"
 const FIRE_ANIM_NAME = "Knife_fire"
 
+# since you cannot reload a knife the reload funtion cannot be run
 const CAN_RELOAD = false
 const CAN_REFILL = false
 
@@ -55,5 +56,5 @@ func unequip_weapon():
 
 	return false
 
-func reload_weapon():
+func reload_weapon(): # This makes it so that the knife cannot be reloaded
 	return false
