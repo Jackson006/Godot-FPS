@@ -5,18 +5,18 @@ const DAMAGE = 15 # The amount of damage a single bullet does
 const IDLE_ANIM_NAME = "Pistol_idle" # the name of the pistols idle animation
 const FIRE_ANIM_NAME = "Pistol_fire" # the name of the pistols fire animation
 
-const CAN_RELOAD = true
-const CAN_REFILL = true
+const CAN_RELOAD = true # A boolean to track whether or not this weapon can reload
+const CAN_REFILL = true # A boolean to track whether or not this weapon can be refilled
 
-const RELOADING_ANIM_NAME = "Pistol_reload"
+const RELOADING_ANIM_NAME = "Pistol_reload" # The name of the reloading animation
 
 var is_weapon_enabled = false # A variable for checking whether this weapon is enabled
 
 var bullet_scene = preload("Bullet_Scene.tscn") # The bulet scene the pistol spawns
 
-var ammo_in_weapon = 10
-var spare_ammo = 20
-const AMMO_IN_MAG = 10
+var ammo_in_weapon = 10 # The amount of ammo currently in the pistol
+var spare_ammo = 20 # The amount of ammo left in reserve 
+const AMMO_IN_MAG = 10 # Ammo in the magizine
 
 var player_node = null # a variable to hold the player script
 
@@ -56,26 +56,26 @@ func unequip_weapon(): #checks things in reverse to equip function
 		return false
 
 func reload_weapon():
-	var can_reload = false
+	var can_reload = false # Checks to see if the weapon can be reloaded
 
-	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
+	if player_node.animation_manager.current_state == IDLE_ANIM_NAME: # Check to see if the weapon is currently firing or already being reloaded
 		can_reload = true
 
-	if spare_ammo <= 0 or ammo_in_weapon == AMMO_IN_MAG:
+	if spare_ammo <= 0 or ammo_in_weapon == AMMO_IN_MAG: # check to see if the player still can amunition in the magazine
 		can_reload = false
 
-	if can_reload == true:
-		var ammo_needed = AMMO_IN_MAG - ammo_in_weapon
+	if can_reload == true: 
+		var ammo_needed = AMMO_IN_MAG - ammo_in_weapon # add an amount of ammo to fill the weapomn equal to the amount added plus what was already in the magazine
 
-		if spare_ammo >= ammo_needed:
+		if spare_ammo >= ammo_needed: #  If the player does not have enough ammo, add all the ammo left in spare ammo
 			spare_ammo -= ammo_needed
 			ammo_in_weapon = AMMO_IN_MAG
 		else:
 			ammo_in_weapon += spare_ammo
-			spare_ammo = 0
+			spare_ammo = 0 # set spare ammo to 0
 
-		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME)
-		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin)
+		player_node.animation_manager.set_animation(RELOADING_ANIM_NAME) # play the reloading animation
+		player_node.create_sound("Gun_cock", player_node.camera.global_transform.origin) # play the reloading sound
 
 		return true
 

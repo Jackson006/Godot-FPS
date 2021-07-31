@@ -15,6 +15,7 @@ var is_weapon_enabled = false
 
 var player_node = null
 
+# because the knife does not consume ammo all ammo variables are 1
 var ammo_in_weapon = 1
 var spare_ammo = 1
 const AMMO_IN_MAG = 1

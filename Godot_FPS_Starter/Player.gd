@@ -1,4 +1,4 @@
-extends KinematicBody
+	extends KinematicBody
 
 const GRAVITY = -50 # How strong gravity pulls down
 var vel = Vector3() # The Kinematic body's velocity
@@ -91,12 +91,12 @@ func process_reloading(delta):
 		reloading_weapon = false
 
 func process_UI(delta):
-	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
-		UI_status_label.text = "HEALTH: " + str(health)
-	else:
-		var current_weapon = weapons[current_weapon_name]
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE": # check to see if the current weapon is unarmed or knife
+		UI_status_label.text = "HEALTH: " + str(health) # If the current weapon is unarmed/knife, only display the player's health
+	else: # get the name of the weapon being used, display health and weapin information
+		var current_weapon = weapons[current_weapon_name]  
 		UI_status_label.text = "HEALTH: " + str(health) + \
-			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
+			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) 
 
 func process_changing_weapons(delta):
 	if changing_weapon == true: # has there been an input to change weapons

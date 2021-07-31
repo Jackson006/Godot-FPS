@@ -15,7 +15,7 @@ var is_weapon_enabled = false
 
 var player_node = null
 
-var ammo_in_weapon = 50
+var ammo_in_weapon = 50 
 var spare_ammo = 100
 const AMMO_IN_MAG = 50
 
