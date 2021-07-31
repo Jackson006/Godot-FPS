@@ -1,7 +1,7 @@
 extends AnimationPlayer
 
 # Structure -> Animation name :[Connecting Animation states]
-var states = {
+var states = { # a dictionary for holding our animation 
 	"Idle_unarmed":["Knife_equip", "Pistol_equip", "Rifle_equip", "Idle_unarmed"],
 
 	"Pistol_equip":["Pistol_idle"],
@@ -22,7 +22,7 @@ var states = {
 	"Knife_unequip":["Idle_unarmed"],
 }
 
-var animation_speeds = {
+var animation_speeds = { # A dictionary for holding all the speeds at which we want to play or animations
 	"Idle_unarmed":1,
 
 	"Pistol_equip":1.4,
@@ -43,20 +43,20 @@ var animation_speeds = {
 	"Knife_unequip":1,
 }
 
-var current_state = null
-var callback_function = null
+var current_state = null # A variable for holding the name of the animation state
+var callback_function = null # A variable for holding the callback function
 
 func _ready():
-	set_animation("Idle_unarmed")
-	connect("animation_finished", self, "animation_ended")
+	set_animation("Idle_unarmed") # starts the animation at unarmed
+	connect("animation_finished", self, "animation_ended") # whenever an animation is finished, animation ended will be called
 
-func set_animation(animation_name):
-	if animation_name == current_state:
+func set_animation(animation_name): # changes the animation
+	if animation_name == current_state: 
 		print ("AnimationPlayer_Manager.gd -- WARNING: animation is already ", animation_name)
 		return true
 
 
-	if has_animation(animation_name):
+	if has_animation(animation_name): # checks the scene and responds accordingly
 		if current_state != null:
 			var possible_animations = states[current_state]
 			if animation_name in possible_animations:
@@ -73,7 +73,7 @@ func set_animation(animation_name):
 	return false
 
 
-func animation_ended(anim_name):
+func animation_ended(anim_name): # is the function called when an animation ends
 
 	# UNARMED transitions
 	if current_state == "Idle_unarmed":
@@ -110,7 +110,7 @@ func animation_ended(anim_name):
 	elif current_state == "Rifle_reload":
 		set_animation("Rifle_idle")
 
-func animation_callback():
+func animation_callback(): #keeps track of animations
 	if callback_function == null:
 		print ("AnimationPlayer_Manager.gd -- WARNING: No callback function for the animation to call!")
 	else:
