@@ -59,7 +59,7 @@ func unequip_weapon():
 
 	return false
 
-func reload_weapon():
+func reload_weapon(): # exactly the same reloading code as the pistol
 	var can_reload = false
 
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:

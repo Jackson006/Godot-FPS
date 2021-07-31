@@ -184,13 +184,13 @@ func process_input(delta):
 
 # the key map values
 	if Input.is_key_pressed(KEY_1):
-		weapon_change_number = 0
-	if Input.is_key_pressed(KEY_2):
 		weapon_change_number = 1
-	if Input.is_key_pressed(KEY_3):
+	if Input.is_key_pressed(KEY_2):
 		weapon_change_number = 2
-	if Input.is_key_pressed(KEY_4):
+	if Input.is_key_pressed(KEY_3):
 		weapon_change_number = 3
+	if Input.is_key_pressed(KEY_4):
+		weapon_change_number = 4
 
 # checks to see is the weapon is being changed or not
 	if Input.is_action_just_pressed("shift_weapon_positive"): # adds 
