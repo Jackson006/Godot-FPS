@@ -230,6 +230,7 @@ func process_input(delta):
 		if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name: # Check to see if the player wants to change weapons
 			changing_weapon_name = WEAPON_NUMBER_TO_NAME[weapon_change_number]
 			changing_weapon = true # if the payer wants to change weapons, change to true
+			mouse_scroll_value = weapon_change_number
 	if changing_weapon == false: # if the player is not changing weapons
 		if reloading_weapon == false: # The player cannot change weapons if they are reloding 
 			if WEAPON_NUMBER_TO_NAME[weapon_change_number] != current_weapon_name:
