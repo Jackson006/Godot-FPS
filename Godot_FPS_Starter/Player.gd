@@ -32,6 +32,7 @@ var changing_weapon = false # a boolean to track whether or not we are changing 
 var changing_weapon_name = "UNARMED" #The name of the weapon we want to change to 
 
 var health = 100 # the health of the player
+const MAX_HEALTH = 150 # The maximum amount of health a player can have
 
 var UI_status_label # A label to show how much health we have, and how much ammo we have in our gun and in reserve
 
@@ -44,6 +45,15 @@ const JOYPAD_DEADZONE = 0.15 # The deadzone of the joypad
 
 var mouse_scroll_value = 0 # The value of the mouse scroll wheel
 const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08 # How much a single scroll action increases mouse_scroll_value
+
+func add_health(additional_health):
+	health += additional_health # adds additional health onto the player
+	health = clamp(health, 0, MAX_HEALTH) # stops their health from rising above a certain level
+
+func add_ammo(additional_ammo):
+	if (current_weapon_name != "UNARMED"): # Checks whether the player is unarmed
+		if (weapons[current_weapon_name].CAN_REFILL == true): # checks to see if the current weapon can be refilled
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo # adds a full clip/magazine worth of ammo to the weapon by multiplying the current weapon's AMMO_IN_MAG value
 
 func create_sound(sound_name, position=null):
 	var audio_clone = simple_audio_player.instance() # instances the audio scene and assigns it a variable
