@@ -52,6 +52,11 @@ var grenade_scene = preload("res://Grenade.tscn") # The grenade scene we worked 
 var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn") # The sticky grenade scene we worked on earlier
 const GRENADE_THROW_FORCE = 50 # The force at which the player will throw the grenades
 
+var grabbed_object = null # A variable to hold the grabbed RigidBody node
+const OBJECT_THROW_FORCE = 120 # The force with which the player throws the grabbed object
+const OBJECT_GRAB_DISTANCE = 7 # The distance away from the camera at which the player holds the grabbed object
+const OBJECT_GRAB_RAY_DISTANCE = 10 # The distance the Raycast goes. This is the player's grab distance
+
 func add_health(additional_health):
 	health += additional_health # adds additional health onto the player
 	health = clamp(health, 0, MAX_HEALTH) # stops their health from rising above a certain level
@@ -100,11 +105,16 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta) # input controls eg. spacebar WASD
-	process_movement(delta) # player movement 
-	process_changing_weapons(delta) # Weapon changing
-	process_UI(delta) # What is shown to the player in the form as a HUD
-	process_reloading(delta) # Reloading the weapons
 	process_view_input(delta)
+	process_movement(delta) # player movement 
+
+	if grabbed_object == null:
+		process_changing_weapons(delta) # Weapon changing
+		process_reloading(delta) # Reloading the weapons
+
+	# Process the UI
+	process_UI(delta) # What is shown to the player in the form as a HUD
+
 
 func process_view_input(delta):
 # ----------------------------------
@@ -193,6 +203,41 @@ func fire_bullet(): # plays the appropriate animation of the bullet
 	weapons[current_weapon_name].fire_weapon()
 
 func process_input(delta):
+# ----------------------------------
+# Grabbing and throwing objects
+	if Input.is_action_just_pressed("fire_grenade") and current_weapon_name == "UNARMED": # checks if the player has tried to throw a grenade and the player is unarmed
+		if grabbed_object == null: # checks if the grabbed object is null
+			var state = get_world().direct_space_state # Checks to see if we can pick up a rigidbody
+
+			var center_position = get_viewport().size / 2 # get the center of the screen by dividing the current Viewport size in half
+			var ray_from = camera.project_ray_origin(center_position) # get the ray's origin point and end point
+			var ray_to = ray_from + camera.project_ray_normal(center_position) * OBJECT_GRAB_RAY_DISTANCE
+
+			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area]) # sends the ray into the space state and see if it gets a result and adds the player and the knife's Area as two exceptions
+			if !ray_result.empty(): # checks to see if the result is empty and empty Dictionary will be returned 
+				if ray_result["collider"] is RigidBody: # If the Dictionary is not empty
+					grabbed_object = ray_result["collider"] # sees if the collider the ray collided with is a RigidBody
+					grabbed_object.mode = RigidBody.MODE_STATIC # set grabbed_object to the collider the ray collided with
+
+# sets the grabbed RigidBody's collision layer and collision mask to 0
+					grabbed_object.collision_layer = 0 # 
+					grabbed_object.collision_mask = 0 # 
+
+		else:
+			grabbed_object.mode = RigidBody.MODE_RIGID # sets the mode of the RigidBody we are holding to MODE_RIGID
+
+			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE) # applies an impulse to send it flying forward
+
+# sets the grabbed RigidBody's collision layer and mask to 1, so it can collide with anything on layer 1 again
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+
+			grabbed_object = null # sets grabbed_object to null
+
+# sees whether or not grabbed_object is equal to null
+	if grabbed_object != null:
+		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE) # set its global position to the camera's position plus OBJECT_GRAB_DISTANCE
+# ----------------------------------
 # ----------------------------------
 # Changing and throwing grenades
 
