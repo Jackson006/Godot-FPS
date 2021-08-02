@@ -46,6 +46,12 @@ const JOYPAD_DEADZONE = 0.15 # The deadzone of the joypad
 var mouse_scroll_value = 0 # The value of the mouse scroll wheel
 const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08 # How much a single scroll action increases mouse_scroll_value
 
+var grenade_amounts = {"Grenade":2, "Sticky Grenade":2} # The amount of grenades the player is currently carrying (for each type of grenade
+var current_grenade = "Grenade" # The name of the grenade the player is currently using
+var grenade_scene = preload("res://Grenade.tscn") # The grenade scene we worked on earlier
+var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn") # The sticky grenade scene we worked on earlier
+const GRENADE_THROW_FORCE = 50 # The force at which the player will throw the grenades
+
 func add_health(additional_health):
 	health += additional_health # adds additional health onto the player
 	health = clamp(health, 0, MAX_HEALTH) # stops their health from rising above a certain level
@@ -137,12 +143,16 @@ func process_reloading(delta):
 		reloading_weapon = false # Once the player has reloaded, do not try to reload until the player presses the reload button
 
 func process_UI(delta):
-	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE": # check to see if the current weapon is unarmed or knife
-		UI_status_label.text = "HEALTH: " + str(health) # If the current weapon is unarmed/knife, only display the player's health
-	else: # get the name of the weapon being used, display health and weapin information
-		var current_weapon = weapons[current_weapon_name]  
+	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
+		# First line: Health, second line: Grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \
-			"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) 
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
+	else:
+		var current_weapon = weapons[current_weapon_name]
+		# First line: Health, second line: weapon and ammo, third line: grenades
+		UI_status_label.text = "HEALTH: " + str(health) + \
+				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade]) 
 
 func process_changing_weapons(delta):
 	if changing_weapon == true: # has there been an input to change weapons
@@ -183,6 +193,31 @@ func fire_bullet(): # plays the appropriate animation of the bullet
 	weapons[current_weapon_name].fire_weapon()
 
 func process_input(delta):
+# ----------------------------------
+# Changing and throwing grenades
+
+	if Input.is_action_just_pressed("change_grenade"): # has the change grenade button been pushed
+		if current_grenade == "Grenade": # checks if the current grenade is the regular grenade
+			current_grenade = "Sticky Grenade" # Changes grenade to opposite grenade
+		elif current_grenade == "Sticky Grenade": # checks if the current grenade is sticky grenade
+			current_grenade = "Grenade" # changes grenade to opposite grenade
+
+		if Input.is_action_just_pressed("fire_grenade"): # has fire grenade been pressed
+			if grenade_amounts[current_grenade] > 0: # checks if the number of grenades is greater than 0
+				grenade_amounts[current_grenade] -= 1 # reduces the number of grenades by 1
+
+			var grenade_clone # creates a grenade node 
+			if current_grenade == "Grenade": # checks if the current grenade is the regular grenade
+				grenade_clone = grenade_scene.instance() # generates an instance of the current grenade
+			elif current_grenade == "Sticky Grenade": # checks if the current grenade is the sticky grenade
+				grenade_clone = sticky_grenade_scene.instance() # generates an instance of the current grenade
+				# Sticky grenades will stick to the player if we do not pass ourselves
+				grenade_clone.player_body = self
+
+			get_tree().root.add_child(grenade_clone) # generates grenade clone as a child node at the root node
+			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform # sets the global transform
+			grenade_clone.apply_impulse(Vector3(0, 0, 0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE) # lanches the grenade forward
+# ----------------------------------
 # ----------------------------------
 # Reloading
 	if reloading_weapon == false: # makes sure that the player isn't reloading or changing weapons
@@ -385,3 +420,7 @@ func _input(event): # keeps the mouse on the screen
 						changing_weapon_name = WEAPON_NUMBER_TO_NAME[round_mouse_scroll_value] # assign changing_weapon_name to true so that so the player will change weapons
 						changing_weapon = true
 						mouse_scroll_value = round_mouse_scroll_value
+
+func add_grenade(additional_grenade):
+	grenade_amounts[current_grenade] += additional_grenade
+	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
