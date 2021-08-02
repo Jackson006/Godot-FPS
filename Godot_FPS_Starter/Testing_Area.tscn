@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ammo_Pickup.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Target.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=5]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -173,6 +175,7 @@ environment = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube"]
 shape = SubResource( 8 )
@@ -185,6 +188,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.23405, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube2"]
 shape = SubResource( 8 )
@@ -197,6 +201,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube3"]
 shape = SubResource( 8 )
@@ -209,6 +214,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 17.1576, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube4"]
 shape = SubResource( 8 )
@@ -221,6 +227,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 24.1593, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube5"]
 shape = SubResource( 8 )
@@ -233,6 +240,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.451504, 17.9137, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube6"]
 shape = SubResource( 8 )
@@ -246,6 +254,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 11 )
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube"]
 shape = SubResource( 8 )
@@ -258,6 +267,7 @@ material/0 = SubResource( 12 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79916, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 13 )
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube2"]
 shape = SubResource( 8 )
@@ -271,6 +281,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.58552, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 14 )
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube3"]
 shape = SubResource( 8 )
@@ -284,6 +295,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.79556, 17.3734, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 15 )
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube4"]
 shape = SubResource( 8 )
@@ -297,6 +309,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51582, 17.3734, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 16 )
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube5"]
 shape = SubResource( 8 )
@@ -310,6 +323,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.602769, 24.9266, -21.6551 )
 mass = 3.0
 physics_material_override = SubResource( 17 )
 gravity_scale = 3.0
+script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube6"]
 shape = SubResource( 8 )
@@ -324,3 +338,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30.6663, 5.43231, 20.6328 )
 [node name="Health_Pickup" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.3501, 5.02532, 19.1105 )
 kit_size = 0
+
+[node name="Target_Whole" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.0738823, 0, -0.997267, 0, 1, 0, 0.997267, 0, 0.0738823, -39.1021, 11.0137, 0 )
