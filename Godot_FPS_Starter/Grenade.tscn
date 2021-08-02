@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/Grenade.scn" type="PackedScene" id=1]
 [ext_resource path="res://assets/GunMaterial.material" type="Material" id=2]
 [ext_resource path="res://assets/Gun_Emission.material" type="Material" id=3]
+[ext_resource path="res://Grenade.gd" type="Script" id=4]
 
 [sub_resource type="PhysicsMaterial" id=1]
 bounce = 0.3
@@ -52,6 +53,7 @@ mass = 2.0
 physics_material_override = SubResource( 1 )
 gravity_scale = 2.0
 can_sleep = false
+script = ExtResource( 4 )
 
 [node name="Grenade" parent="." instance=ExtResource( 1 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
