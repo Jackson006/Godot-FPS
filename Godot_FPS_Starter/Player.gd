@@ -103,6 +103,9 @@ func _ready():
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight # get's the flashlight noed and assigns it to the variable
 
+func bullet_hit(damage, bullet_hit_pos):
+	health -= damage # reduces the player's health equal to the bullet damage
+
 func _physics_process(delta):
 	process_input(delta) # input controls eg. spacebar WASD
 	process_view_input(delta)

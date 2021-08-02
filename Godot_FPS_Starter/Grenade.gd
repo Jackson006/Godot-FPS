@@ -29,7 +29,7 @@ func _process(delta):
 		grenade_timer += delta # adds delta to the grenade timer
 		return
 	else:
-		if explosion_wait_timer <= 0: # checks if the explosion waot timer is less than or equal to 0
+		if explosion_wait_timer <= 0: # checks if the explosion wait timer is less than or equal to 0
 			explosion_particles.emitting = true # is the timer is less than or equal to 0 emmit the particles
 
 			grenade_mesh.visible = false # makes the grenade mesh invisible
