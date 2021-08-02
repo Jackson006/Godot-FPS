@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Two.material" type="Material" id=1]
 [ext_resource path="res://assets/Gamemode_Objects/Emissive_Orange.material" type="Material" id=2]
 [ext_resource path="res://Target.gd" type="Script" id=3]
+[ext_resource path="res://Broken_Target.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.048"
@@ -40,6 +41,7 @@ points = PoolVector3Array( -0.000567913, -3.02344, -0.153931, 1.1582, -2.79297, 
 
 [node name="Target" type="StaticBody" parent="."]
 script = ExtResource( 3 )
+destroyed_target = ExtResource( 4 )
 
 [node name="Target_Whole" type="MeshInstance" parent="Target"]
 mesh = SubResource( 1 )

@@ -55,6 +55,10 @@ func unequip_weapon(): #checks things in reverse to equip function
 	else:
 		return false
 
+func reset_weapon():
+	ammo_in_weapon = 10
+	spare_ammo = 20
+
 func reload_weapon():
 	var can_reload = false # Checks to see if the weapon can be reloaded
 
