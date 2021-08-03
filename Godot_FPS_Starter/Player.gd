@@ -73,10 +73,7 @@ func add_ammo(additional_ammo):
 			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo # adds a full clip/magazine worth of ammo to the weapon by multiplying the current weapon's AMMO_IN_MAG value
 
 func create_sound(sound_name, position=null):
-	var audio_clone = simple_audio_player.instance() # instances the audio scene and assigns it a variable
-	var scene_root = get_tree().root.get_children()[0]
-	scene_root.add_child(audio_clone) # adds newly created simple_audio_player scene to be a child of the scene root
-	audio_clone.play_sound(sound_name, position) # play's the designated audio
+	globals.play_sound(sound_name, false, position)
 
 func _ready():
 	camera = $Rotation_Helper/Camera #

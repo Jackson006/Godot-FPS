@@ -14,6 +14,15 @@ var popup = null # A variable to hold the pop up scene
 
 var respawn_points = null #A variable to hold all the respawn points in a level
 
+var audio_clips = {
+	"Pistol_shot": null, #preload("res://Blast Laser 2.wav")
+	"Rifle_shot": null, #preload("res://Big Blast 4.wav")
+	"Gun_cock": null, #preload("res://WEAPON CLICK Reload Mechanism 01.wav")
+}
+
+const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
+var created_audio = []
+
 func _ready():
 	canvas_layer = CanvasLayer.new() # creates a new canvas layer
 	add_child(canvas_layer)
@@ -22,6 +31,10 @@ func _ready():
 func load_new_scene(new_scene_path):
 	get_tree().change_scene(new_scene_path) # changes the scene
 	respawn_points = null
+	for sound in created_audio:
+		if (sound != null):
+			sound.queue_free()
+		created_audio.clear()
 
 func set_debug_display(display_on):
 	if display_on == false: # checks to see of the display equals false
@@ -73,3 +86,16 @@ func get_respawn_position():
 	else:
 		var respawn_point = rand_range(0, respawn_points.size() - 1) # gets a random number between 0 and the number of elements we have in respawn_points, minus 1
 		return respawn_points[respawn_point].global_transform.origin # returns the position of the Spatial node at respawn_point position in respawn_points
+
+func play_sound(sound_name, loop_sound=false, sound_position=null):
+	if audio_clips.has(sound_name):
+		var new_audio = SIMPLE_AUDIO_PLAYER_SCENE.instance()
+		new_audio.should_loop = loop_sound
+
+		add_child(new_audio)
+		created_audio.append(new_audio)
+
+		new_audio.play_sound(audio_clips[sound_name], sound_position)
+
+	else:
+		print ("ERROR: cannot play sound that does not exist in audio_clips!")
