@@ -15,9 +15,9 @@ var popup = null # A variable to hold the pop up scene
 var respawn_points = null #A variable to hold all the respawn points in a level
 
 var audio_clips = {
-	"Pistol_shot": null, #preload("res://Blast Laser 2.wav")
-	"Rifle_shot": null, #preload("res://Big Blast 4.wav")
-	"Gun_cock": null, #preload("res://WEAPON CLICK Reload Mechanism 01.wav")
+	"Pistol_shot": preload("res://Blast Laser 2.wav"),
+	"Rifle_shot": preload("res://Big Blast 4.wav"),
+	"Gun_cock": preload("res://WEAPON CLICK Reload Mechanism 01.wav")
 }
 
 const SIMPLE_AUDIO_PLAYER_SCENE = preload("res://Simple_Audio_Player.tscn")
