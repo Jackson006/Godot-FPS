@@ -84,3 +84,7 @@ func reload_weapon(): # exactly the same reloading code as the pistol
 		return true
 
 	return false
+
+func reset_weapon():
+	ammo_in_weapon = 50 
+	spare_ammo = 100

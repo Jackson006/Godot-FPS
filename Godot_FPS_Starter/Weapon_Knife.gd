@@ -58,3 +58,7 @@ func unequip_weapon():
 
 func reload_weapon(): # This makes it so that the knife cannot be reloaded
 	return false
+
+func reset_weapon():
+	ammo_in_weapon = 1
+	spare_ammo = 1

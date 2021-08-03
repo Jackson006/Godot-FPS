@@ -57,6 +57,12 @@ const OBJECT_THROW_FORCE = 120 # The force with which the player throws the grab
 const OBJECT_GRAB_DISTANCE = 7 # The distance away from the camera at which the player holds the grabbed object
 const OBJECT_GRAB_RAY_DISTANCE = 10 # The distance the Raycast goes. This is the player's grab distance
 
+const RESPAWN_TIME = 4 # The amount of time (in seconds) it takes to respawn
+var dead_time = 0 # A variable to track how long the player has been dead
+var is_dead = false # A variable to track whether or not the player is currently dead
+
+var globals # A variable to hold the Globals.gd singleton
+
 func add_health(additional_health):
 	health += additional_health # adds additional health onto the player
 	health = clamp(health, 0, MAX_HEALTH) # stops their health from rising above a certain level
@@ -103,20 +109,24 @@ func _ready():
 	UI_status_label = $HUD/Panel/Gun_label
 	flashlight = $Rotation_Helper/Flashlight # get's the flashlight noed and assigns it to the variable
 
+	globals = get_node("/root/Globals") # gets the Globals.gd singleton and assigning it to globals
+	global_transform.origin = globals.get_respawn_position() # sets the player's global position
+
 func bullet_hit(damage, bullet_hit_pos):
 	health -= damage # reduces the player's health equal to the bullet damage
 
 func _physics_process(delta):
-	process_input(delta) # input controls eg. spacebar WASD
-	process_view_input(delta)
-	process_movement(delta) # player movement 
+	if !is_dead:
+		process_input(delta)
+		process_view_input(delta)
+		process_movement(delta)
 
-	if grabbed_object == null:
-		process_changing_weapons(delta) # Weapon changing
-		process_reloading(delta) # Reloading the weapons
+	if (grabbed_object == null):
+		process_changing_weapons(delta)
+		process_reloading(delta)
 
-	# Process the UI
-	process_UI(delta) # What is shown to the player in the form as a HUD
+	process_UI(delta)
+	process_respawn(delta)
 
 
 func process_view_input(delta):
@@ -441,6 +451,8 @@ func process_movement(delta):
 	vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func _input(event): # keeps the mouse on the screen
+	if is_dead:
+		return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
@@ -469,3 +481,58 @@ func _input(event): # keeps the mouse on the screen
 func add_grenade(additional_grenade):
 	grenade_amounts[current_grenade] += additional_grenade
 	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
+
+func process_respawn(delta):
+
+	# If we've just died
+	if health <= 0 and !is_dead: # Checks if health is less than or equal to 0
+		$Body_CollisionShape.disabled = true # Disables the player's body collision shape
+		$Feet_CollisionShape.disabled = true # Disables the player's feet collision shape
+
+		changing_weapon = true # Makes it so that the player can change weapons
+		changing_weapon_name = "UNARMED" # Changes the player's weapon to unarmed
+
+		$HUD/Death_Screen.visible = true # makes the death screen visible
+
+		$HUD/Panel.visible = false # makes the hud panel invisible
+		$HUD/Crosshair.visible = false # makes the player's crosshair invisible 
+
+		dead_time = RESPAWN_TIME # The dead time is equal to the respawn time
+		is_dead = true # makes the player dead
+
+		if grabbed_object != null: # checks if the grabbed object is null
+			grabbed_object.mode = RigidBody.MODE_RIGID # Makes the grabbed object unable to move
+			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE / 2) # gets the respawn position
+
+			grabbed_object.collision_layer = 1 # makes the grabbed object collision layer equal to 1
+			grabbed_object.collision_mask = 1 # makes the grabbed object collision mask equal to 1
+
+			grabbed_object = null # makes the grabbed object equal null
+
+	if is_dead: # Checks if the character is dead
+		dead_time -= delta # reduces the dead time by delta
+
+		var dead_time_pretty = str(dead_time).left(3) # variable for dead time
+		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn" # Shows the label; you died, x seconds until respawn
+
+		if dead_time <= 0: # Checks if the dead time is less than or equal to 0
+			global_transform.origin = globals.get_respawn_position() # Transorms the global position
+
+			$Body_CollisionShape.disabled = false # makes the body collision shape equal false
+			$Feet_CollisionShape.disabled = false # makes the feet collision shape equal false
+
+			$HUD/Death_Screen.visible = false # makes the death screen invisible
+
+			$HUD/Panel.visible = true # makes the panel screen visible
+			$HUD/Crosshair.visible = true # makes the crosshair screen visible
+
+			for weapon in weapons: # for the weapons the player has 
+				var weapon_node = weapons[weapon] # variable for the weapon nodes
+				if weapon_node != null: # checks if the weapon node equals null
+					weapon_node.reset_weapon() # reset the weapon node
+
+			health = 100 # Resets the player health to 100
+			grenade_amounts = {"Grenade":2, "Sticky Grenade":2} # resets the players ammount of grenades
+			current_grenade = "Grenade" # Makes the current grenade the default grenade
+
+			is_dead = false # brings the player back to life

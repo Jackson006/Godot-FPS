@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ammo_Pickup.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Health_Pickup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=5]
 [ext_resource path="res://Turret.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/Ruin_Level_Objects/Respawn_Point_Setter.gd" type="Script" id=7]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -345,3 +346,10 @@ transform = Transform( 0.0738823, 0, -0.997267, 0, 1, 0, 0.997267, 0, 0.0738823,
 
 [node name="Turret" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.0472, 1.63563, 31.4726 )
+
+[node name="Spawn point" type="Spatial" parent="."]
+visible = false
+script = ExtResource( 7 )
+
+[node name="Position3D" type="Position3D" parent="Spawn point"]
+visible = false
