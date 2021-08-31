@@ -7,6 +7,7 @@ var options_menu #  A variable to hold the Options_Menu Panel
 export (String, FILE) var testing_area_scene # The path to the Testing_Area.tscn file, so we can change to it from this scene
 export (String, FILE) var space_level_scene # The path to the Space_Level.tscn file, so we can change to it from this scene
 export (String, FILE) var ruins_level_scene # The path to the Ruins_Level.tscn file, so we can change to it from this scene
+export (String, FILE) var doom_level_scene # The path to the Ruins_Level.tscn file, so we can change to it from this scene
 
 func _ready():
 	# gets all the Panel nodes and assign them to the proper variables
@@ -24,6 +25,7 @@ func _ready():
 	$Level_Select_Menu/Button_Level_Testing_Area.connect("pressed", self, "level_select_menu_button_pressed", ["testing_scene"])
 	$Level_Select_Menu/Button_Level_Space.connect("pressed", self, "level_select_menu_button_pressed", ["space_level"])
 	$Level_Select_Menu/Button_Level_Ruins.connect("pressed", self, "level_select_menu_button_pressed", ["ruins_level"])
+	$Level_Select_Menu/Button_Doom_Level.connect("pressed", self, "level_select_menu_button_pressed", ["doom_level"])
 
 	$Options_Menu/Button_Back.connect("pressed", self, "options_menu_button_pressed", ["back"])
 	$Options_Menu/Button_Fullscreen.connect("pressed", self, "options_menu_button_pressed", ["fullscreen"])
@@ -62,6 +64,9 @@ func level_select_menu_button_pressed(button_name):
 	elif button_name == "ruins_level": # Checks if the ruins level button has been pushed
 		set_mouse_and_joypad_sensitivity() # sets the mouse and joypad sensitivity
 		get_node("/root/Globals").load_new_scene(ruins_level_scene) # get node and load new scene
+	elif button_name == "doom_level":
+		set_mouse_and_joypad_sensitivity()
+		get_node("/root/Globals").load_new_scene(doom_level_scene)
 
 
 func options_menu_button_pressed(button_name):
