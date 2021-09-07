@@ -510,7 +510,7 @@ func process_respawn(delta):
 		dead_time -= delta # reduces the dead time by delta
 
 		var dead_time_pretty = str(dead_time).left(3) # variable for dead time
-		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn" # Shows the label; you died, x seconds until respawn
+		$HUD/Death_Screen/Label.text = "You lose\n" + dead_time_pretty + " seconds till respawn" # Shows the label; you died, x seconds until respawn
 
 		if dead_time <= 0: # Checks if the dead time is less than or equal to 0
 			global_transform.origin = globals.get_respawn_position() # Transorms the global position

@@ -92,6 +92,7 @@ func _physics_process(delta):
 	if turret_health <= 0: # Check if the turret health is equal to or less than 0
 		if destroyed_timer > 0: # Checks if the destroyed timer is greater than 0
 			destroyed_timer -= delta # reduces the destroyed timer by delta
+			
 		else:
 			turret_health = MAX_TURRET_HEALTH # refills the turret's health
 			smoke_particles.emitting = false # Makes the smoke particles invisible
