@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/SpaceBarrel.obj-7eeb0673e772857785e2e2a56bb52db9.mesh"
+
+[deps]
+
+files=[ "res://.import/SpaceBarrel.obj-7eeb0673e772857785e2e2a56bb52db9.mesh" ]
+
+source_file="res://assets/3D models/files/SpaceBarrel.obj"
+dest_files=[ "res://.import/SpaceBarrel.obj-7eeb0673e772857785e2e2a56bb52db9.mesh", "res://.import/SpaceBarrel.obj-7eeb0673e772857785e2e2a56bb52db9.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
