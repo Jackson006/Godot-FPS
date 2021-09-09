@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Win scene.gd" type="Script" id=1]
 [ext_resource path="res://Button.gd" type="Script" id=2]
+[ext_resource path="res://assets/Fonts/Almendra_SC/AlmendraSC-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/Images/Nyctophobia credits 1280x720.jpg" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 3 )
 
 [node name="Win scene" type="Control"]
 anchor_right = 1.0
@@ -11,26 +17,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
-margin_left = 589.727
-margin_top = 339.411
-margin_right = 629.727
-margin_bottom = 353.411
-text = "YOU WIN!!!"
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HUD" type="VBoxContainer" parent="."]
-margin_left = 555.293
-margin_top = 296.334
-margin_right = 703.293
-margin_bottom = 336.334
+margin_left = 795.938
+margin_top = 633.993
+margin_right = 1270.94
+margin_bottom = 699.993
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="HUD"]
-margin_right = 148.0
-margin_bottom = 20.0
+margin_right = 475.0
+margin_bottom = 66.0
+custom_fonts/font = SubResource( 1 )
 text = "Return to main menu"
+flat = true
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
