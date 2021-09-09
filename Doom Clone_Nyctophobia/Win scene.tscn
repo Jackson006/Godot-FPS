@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Win scene.gd" type="Script" id=1]
+[ext_resource path="res://Button.gd" type="Script" id=2]
+
+[node name="Win scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 589.727
+margin_top = 339.411
+margin_right = 629.727
+margin_bottom = 353.411
+text = "YOU WIN!!!"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 551.543
+margin_top = 370.524
+margin_right = 699.543
+margin_bottom = 390.524
+text = "Return to main menu"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scene_to_load = "Main_Menu.tscn"
