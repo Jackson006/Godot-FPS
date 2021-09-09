@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Big Blast 4.wav-d7fd0f5b7a454ba8c13696eb221bb2fb.sample"
+
+[deps]
+
+source_file="res://Big Blast 4.wav"
+dest_files=[ "res://.import/Big Blast 4.wav-d7fd0f5b7a454ba8c13696eb221bb2fb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
