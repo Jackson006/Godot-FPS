@@ -3,14 +3,14 @@
 [ext_resource path="res://assets/3D models/files/SpaceBarrel.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape" id=1]
-height = 0.002
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 2.45406, 4.34978, 2.42417 )
 
 [node name="Space_Barrel_Rigid_Body" type="RigidBody"]
 script = ExtResource( 2 )
 
 [node name="Space_Barrel" type="MeshInstance" parent="."]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.471315, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 material/1 = null
@@ -20,4 +20,5 @@ material/4 = null
 material/5 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.17107, 0 )
 shape = SubResource( 1 )
