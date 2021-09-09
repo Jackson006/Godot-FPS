@@ -68,9 +68,13 @@ font_data = ExtResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 testing_area_scene = "res://Testing_Area.tscn"
 space_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
 ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
+doom_level_scene = "res://Doom_Clone.tscn"
 
 [node name="Background_Animation" type="Spatial" parent="."]
 
@@ -79,6 +83,7 @@ environment = SubResource( 2 )
 
 [node name="Main_Menu_Camera" type="Camera" parent="Background_Animation"]
 transform = Transform( 1, -1.74846e-07, 1.74846e-07, 1.74846e-07, 1, -1.74846e-07, -1.74846e-07, 1.74846e-07, 1, 0, 0, 0 )
+current = true
 
 [node name="Animation_Player" type="AnimationPlayer" parent="Background_Animation"]
 autoplay = "Background_Animation"
