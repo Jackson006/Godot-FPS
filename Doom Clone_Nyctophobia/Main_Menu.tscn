@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Main_Menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://FPS_project_icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/Space_Level_Objects/SpaceThumbnail.png" type="Texture" id=5]
 [ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=6]
+[ext_resource path="res://assets/Images/main loading screen.jpg" type="Texture" id=7]
 
 [sub_resource type="PanoramaSky" id=1]
 radiance_size = 0
@@ -154,7 +155,6 @@ custom_fonts/font = SubResource( 5 )
 text = "Quit"
 
 [node name="Level_Select_Menu" type="Panel" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.901961 )
 margin_right = 330.0
 margin_bottom = 720.0
@@ -189,10 +189,10 @@ text = "Back"
 [node name="Button_Level_Testing_Area" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 113.0
-margin_right = 70.0
-margin_bottom = 253.0
+margin_left = -146.195
+margin_top = 101.888
+margin_right = -6.19513
+margin_bottom = 241.888
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Testing_Area"]
 anchor_left = 0.5
@@ -209,10 +209,10 @@ expand = true
 [node name="Button_Level_Space" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 275.0
-margin_right = 70.0
-margin_bottom = 415.0
+margin_left = 5.89484
+margin_top = 101.845
+margin_right = 145.895
+margin_bottom = 241.845
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Space"]
 anchor_left = 0.5
@@ -229,10 +229,13 @@ expand = true
 [node name="Button_Level_Ruins" type="Button" parent="Level_Select_Menu"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.0
-margin_top = 433.0
-margin_right = 70.0
-margin_bottom = 573.0
+margin_left = -145.423
+margin_top = 254.61
+margin_right = -5.42297
+margin_bottom = 394.61
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Level_Ruins"]
 anchor_left = 0.5
@@ -244,6 +247,29 @@ margin_top = -60.0
 margin_right = 60.0
 margin_bottom = 60.0
 texture = ExtResource( 6 )
+expand = true
+
+[node name="Button_Doom_Level" type="Button" parent="Level_Select_Menu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 7.13907
+margin_top = 253.795
+margin_right = 147.139
+margin_bottom = 393.795
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="Level_Select_Menu/Button_Doom_Level"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -60.0
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 7 )
 expand = true
 
 [node name="Options_Menu" type="Panel" parent="."]

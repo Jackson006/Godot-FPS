@@ -11,7 +11,7 @@ var options_menu
 export (String, FILE) var testing_area_scene
 export (String, FILE) var space_level_scene
 export (String, FILE) var ruins_level_scene
-
+export (String, FILE) var doom_level_scene
 
 func _ready():
 	start_menu = $Start_Menu
@@ -29,6 +29,7 @@ func _ready():
 	$Level_Select_Menu/Button_Level_Testing_Area.connect("pressed", self, "level_select_menu_button_pressed", ["testing_scene"])
 	$Level_Select_Menu/Button_Level_Space.connect("pressed", self, "level_select_menu_button_pressed", ["space_level"])
 	$Level_Select_Menu/Button_Level_Ruins.connect("pressed", self, "level_select_menu_button_pressed", ["ruins_level"])
+	$Level_Select_Menu/Button_Doom_Level.connect("pressed", self, "level_select_menu_button_pressed", ["doom_level"])
 	
 	# Connect all of the options menu buttons
 	$Options_Menu/Button_Back.connect("pressed", self, "options_menu_button_pressed", ["back"])
@@ -73,7 +74,9 @@ func level_select_menu_button_pressed(button_name):
 	elif button_name == "ruins_level":
 		set_mouse_and_joypad_sensitivity()
 		get_node("/root/Globals").load_new_scene(ruins_level_scene)
-
+	elif button_name == "doom_level":
+		set_mouse_and_joypad_sensitivity()
+		get_node("/root/Globals").load_new_scene(doom_level_scene)
 
 func options_menu_button_pressed(button_name):
 	if button_name == "back":
