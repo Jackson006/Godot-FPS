@@ -18,11 +18,18 @@ margin_right = 629.727
 margin_bottom = 353.411
 text = "YOU WIN!!!"
 
-[node name="Button" type="Button" parent="."]
-margin_left = 551.543
-margin_top = 370.524
-margin_right = 699.543
-margin_bottom = 390.524
+[node name="HUD" type="VBoxContainer" parent="."]
+margin_left = 555.293
+margin_top = 296.334
+margin_right = 703.293
+margin_bottom = 336.334
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="HUD"]
+margin_right = 148.0
+margin_bottom = 20.0
 text = "Return to main menu"
 script = ExtResource( 2 )
 __meta__ = {
