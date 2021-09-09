@@ -660,7 +660,7 @@ func process_respawn(delta):
 		# Do do this, we convert dead_time to a string, and get the first three characters (2.0, for example)
 		var dead_time_pretty = str(dead_time).left(3)
 		# Update the death screen label
-		$HUD/Death_Screen/Label.text = "You died\n" + dead_time_pretty + " seconds till respawn"
+		$HUD/Death_Screen/Label.text = "You Lose\n" + dead_time_pretty + " seconds till respawn"
 		
 		# If dead time is 0 or less, we've waited long enough and can respawn
 		if dead_time <= 0:

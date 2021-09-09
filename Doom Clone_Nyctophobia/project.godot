@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Godot FPS"
+config/name="Doom Clone: Nyctophobia"
 run/main_scene="res://Main_Menu.tscn"
 config/icon="res://FPS_project_icon.png"
 
