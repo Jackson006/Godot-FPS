@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Danger is close.wav-2f55c7ca60c6579fe55018ecc5034203.sample"
+
+[deps]
+
+source_file="res://assets/Music/Danger is close.wav"
+dest_files=[ "res://.import/Danger is close.wav-2f55c7ca60c6579fe55018ecc5034203.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

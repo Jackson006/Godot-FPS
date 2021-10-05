@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/The Darkness.wav-9f2b9b36a31493dcb0c6e36e7a17f6af.sample"
+
+[deps]
+
+source_file="res://The Darkness.wav"
+dest_files=[ "res://.import/The Darkness.wav-9f2b9b36a31493dcb0c6e36e7a17f6af.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

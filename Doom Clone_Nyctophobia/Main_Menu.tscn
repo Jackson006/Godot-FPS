@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/Space_Level_Objects/SpaceThumbnail.png" type="Texture" id=5]
 [ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=6]
 [ext_resource path="res://assets/Images/main loading screen.jpg" type="Texture" id=7]
-[ext_resource path="res://assets/Music/Amnesia The Dark Descent - Soundtrack -  (Mikko Termia) - 01 - Main theme..wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/Music/Main theme..wav" type="AudioStream" id=8]
 
 [sub_resource type="PanoramaSky" id=1]
 radiance_size = 0

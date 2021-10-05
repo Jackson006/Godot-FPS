@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Panic and Paranoia.wav-6af9f51c4625c9194d94b9fbf54a8eea.sample"
+
+[deps]
+
+source_file="res://assets/Music/Panic and Paranoia.wav"
+dest_files=[ "res://.import/Panic and Paranoia.wav-6af9f51c4625c9194d94b9fbf54a8eea.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
