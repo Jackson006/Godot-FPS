@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Win scene.gd" type="Script" id=1]
 [ext_resource path="res://Button.gd" type="Script" id=2]
 [ext_resource path="res://assets/Fonts/Almendra_SC/AlmendraSC-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/Images/Nyctophobia credits 1280x720.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/Music/The End.wav" type="AudioStream" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -16,6 +17,10 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 40.0
