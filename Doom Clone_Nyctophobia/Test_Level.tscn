@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Space_Level_Objects/Space_Level_Mesh_Lib.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://The Darkness.wav" type="AudioStream" id=3]
+
+[sub_resource type="PanoramaSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+tonemap_mode = 3
+ssao_enabled = true
+ssao_light_affect = 1.0
+dof_blur_far_enabled = true
+dof_blur_far_distance = 45.0
+dof_blur_far_transition = 8.0
+dof_blur_far_amount = 0.7
+glow_enabled = true
+glow_intensity = 0.3
+glow_strength = 1.1
+glow_bloom = 0.3
+glow_blend_mode = 0
+glow_hdr_threshold = 1.2
+glow_bicubic_upscale = true
+adjustment_enabled = true
+
+[sub_resource type="GIProbeData" id=3]
+
+[node name="Test_Level" type="Spatial"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Floor_And_Ceiling" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Walls" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="GIProbe" type="GIProbe" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.35, 0 )
+extents = Vector3( 130.269, 26.335, 162.518 )
+dynamic_range = 6
+propagation = 1.0
+data = SubResource( 3 )
