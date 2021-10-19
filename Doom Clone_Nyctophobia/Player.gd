@@ -32,7 +32,7 @@ var rotation_helper
 # The sensitivity of the mouse
 # (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
 # (You may need to adjust depending on the sensitivity of your mouse)
-var MOUSE_SENSITIVITY = 0.05
+var MOUSE_SENSITIVITY = 0.01
 # The value of the scroll wheel (relative to our current weapon)
 var mouse_scroll_value = 0
 # How much a single scroll action increases mouse_scroll_value
@@ -41,7 +41,7 @@ const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
 # The sensitivity of the joypad's joysticks.
 # (Higher values equals faster movements with the mouse. Lower values equals slower movements with the mouse)
 # (You may need to adjust depending on the sensitivity of your joypad)
-var JOYPAD_SENSITIVITY = 2
+var JOYPAD_SENSITIVITY = 5
 # The dead zone for the joypad. Many joypads jitter around a certain point, so any movement in a
 # with a radius of JOYPAD_DEADZONE should be ignored (or the camera will jitter)
 const JOYPAD_DEADZONE = 0.15
