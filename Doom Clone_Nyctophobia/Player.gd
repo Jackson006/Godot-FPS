@@ -86,7 +86,7 @@ var simple_audio_player = preload("res://Simple_Audio_Player.tscn")
 
 # Grenade variables
 # The number of grenades we currently have for each type of grenade
-var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+var grenade_amounts = {"Grenade":0, "Sticky Grenade":0}
 # The current selected grenade
 var current_grenade = "Grenade"
 # The grenade and sticky grenade scenes
