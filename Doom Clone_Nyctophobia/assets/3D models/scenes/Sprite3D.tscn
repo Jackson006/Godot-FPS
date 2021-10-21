@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Viewport.gd" type="Script" id=1]
+
+[node name="Escape text" type="Sprite3D"]
+
+[node name="Viewport" type="Viewport" parent="."]
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="Viewport"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Escape button"
