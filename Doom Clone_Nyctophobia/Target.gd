@@ -33,7 +33,7 @@ func _physics_process(delta):
 	# If the target respawn timer is more than 0, then we're currently disabled and need
 	# to reduce time from the timer so we can respawn
 	if target_respawn_timer > 0:
-		get_tree().change_scene("res://Win scene.tscn")
+		# get_tree().change_scene("res://Win scene.tscn")
 		target_respawn_timer -= delta
 		
 		# If the target respawn timer is 0 or less, we've waited long enough and can now respawn

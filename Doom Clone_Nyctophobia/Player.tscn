@@ -4276,6 +4276,9 @@ margin_top = -10.0
 margin_right = 380.0
 margin_bottom = 160.0
 custom_styles/panel = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Score" type="Label" parent="HUD/Panel_Score"]
 self_modulate = Color( 1, 1, 1, 0.705882 )
