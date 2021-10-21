@@ -2,9 +2,9 @@ extends Spatial
 
 # Variables for storing how much ammo is in the weapon, how much spare ammo this weapon has
 # and how much ammo is in a full weapon/magazine.
-var ammo_in_weapon = 50
-var spare_ammo = 100
-const AMMO_IN_MAG = 50
+var ammo_in_weapon = 0
+var spare_ammo = 0
+const AMMO_IN_MAG = 0
 # How much damage does this weapon do
 const DAMAGE = 4
 
