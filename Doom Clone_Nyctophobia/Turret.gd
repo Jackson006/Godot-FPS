@@ -5,7 +5,7 @@ extends Spatial
 export (bool) var use_raycast = false
 
 # How much damage each bullet option does
-const TURRET_DAMAGE_BULLET = 20
+const TURRET_DAMAGE_BULLET = 50
 const TURRET_DAMAGE_RAYCAST = 5
 
 # The amount of time (in seconds) the flash meshes are visible
