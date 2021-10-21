@@ -117,6 +117,15 @@ text = "Godot 3
 FPS Tutorial"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Highscore" type="Label" parent="Start_Menu"]
+margin_left = 146.041
+margin_top = 131.754
+margin_right = 186.041
+margin_bottom = 145.754
 
 [node name="Button_Start" type="Button" parent="Start_Menu"]
 anchor_left = 0.5

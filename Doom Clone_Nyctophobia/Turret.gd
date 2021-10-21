@@ -134,6 +134,8 @@ func _physics_process(delta):
 	
 	# If we are broken, then we need to wait until we are repaired
 	if turret_health <= 0:
+		Globals.playerScore += 100
+		print(Globals.playerScore)
 		# If we are repairing, then subtract delta from destroyed_timer.
 		# Otherwise we set our health to that of a fully repaired turret and stop
 		# emitting the smoke particles.

@@ -20,6 +20,9 @@ var debug_display = null
 
 # ------------------------------------
 
+# Current player's score, starting at 0
+var playerScore = 0
+#-------------------------------------
 
 # A variable to hold all of the respawn points in a level
 var respawn_points = null

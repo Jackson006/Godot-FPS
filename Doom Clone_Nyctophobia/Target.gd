@@ -56,6 +56,8 @@ func bullet_hit(damage, bullet_hit_pos):
 	
 	# If we're at 0 health or below, we need to spawn the broken target scene
 	if current_health <= 0:
+		Globals.playerScore += 100
+		print(Globals.playerScore)
 		# Instance the scene and add it as a child of the broken target holder
 		var clone = destroyed_target.instance()
 		broken_target_holder.add_child(clone)
