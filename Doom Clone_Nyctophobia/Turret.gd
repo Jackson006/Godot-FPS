@@ -164,7 +164,7 @@ func fire_bullet():
 		# Set how much damage the bullet does
 		clone.BULLET_DAMAGE = TURRET_DAMAGE_BULLET
 		# Set how fast the bullet travels. We want the bullet to travel a little slower than the player
-		clone.BULLET_SPEED = 60
+		clone.BULLET_SPEED = 100
 		
 		# Remove the bullet from the turret
 		ammo_in_turret -= 1
