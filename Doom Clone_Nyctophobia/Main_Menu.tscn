@@ -369,15 +369,31 @@ custom_fonts/font = SubResource( 5 )
 pressed = true
 text = "V-Sync"
 
+[node name="Check_Button_Invert_mouse" type="CheckButton" parent="Options_Menu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -133.413
+margin_top = -400.791
+margin_right = 136.587
+margin_bottom = -360.791
+custom_fonts/font = SubResource( 5 )
+pressed = true
+text = "Invert mouse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button_Fullscreen" type="Button" parent="Options_Menu"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -135.0
-margin_top = -400.0
+margin_top = -355.553
 margin_right = 135.0
-margin_bottom = -350.0
+margin_bottom = -305.553
 custom_fonts/font = SubResource( 5 )
 text = "Fullscreen"
 

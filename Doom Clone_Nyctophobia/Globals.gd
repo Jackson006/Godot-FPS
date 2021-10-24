@@ -31,7 +31,9 @@ var respawn_points = null
 var mouse_sensitivity = 0.08
 # A variable to hold the joypad sensitivity (so Player.gd can load it)
 var joypad_sensitivity = 2
-
+# mouse inversion
+#var previousGlobalMousePosition = null
+#var currentGlobalMousePosition = Vector2.ZERO
 
 # ------------------------------------
 # All of the audio files.

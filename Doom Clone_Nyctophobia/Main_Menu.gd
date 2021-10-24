@@ -87,6 +87,8 @@ func options_menu_button_pressed(button_name):
 		OS.window_fullscreen = !OS.window_fullscreen
 	elif button_name == "vsync":
 		OS.vsync_enabled = $Options_Menu/Check_Button_VSync.pressed
+	elif button_name == "Invert_mouse":
+		OS.vsync_enabled = $Options_Menu/Check_Button_Invert_mouse.pressed
 	elif button_name == "debug":
 		get_node("/root/Globals").set_debug_display($Options_Menu/Check_Button_Debug.pressed)
 
@@ -97,3 +99,4 @@ func set_mouse_and_joypad_sensitivity():
 	# Set the mouse and joypad sensitivity
 	globals.mouse_sensitivity = $Options_Menu/HSlider_Mouse_Sensitivity.value
 	globals.joypad_sensitivity = $Options_Menu/HSlider_Joypad_Sensitivity.value
+	#globals.mouse_position
