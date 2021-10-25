@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main_Menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/lightblue_equirectangular.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=6]
 [ext_resource path="res://assets/Images/main loading screen.jpg" type="Texture" id=7]
 [ext_resource path="res://assets/Music/Main theme..wav" type="AudioStream" id=8]
+[ext_resource path="res://Button_Sound.gd" type="Script" id=9]
 
 [sub_resource type="PanoramaSky" id=1]
 radiance_size = 0
@@ -138,6 +139,7 @@ margin_right = 155.0
 margin_bottom = -200.0
 custom_fonts/font = SubResource( 5 )
 text = "Start game"
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

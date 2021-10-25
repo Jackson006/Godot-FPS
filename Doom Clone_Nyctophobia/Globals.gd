@@ -48,7 +48,8 @@ var joypad_sensitivity = 2
 var audio_clips = {
 	"pistol_shot": preload("res://Blast Laser 2.wav"),
 	"rifle_shot": preload("res://Big Blast 4.wav"),
-	"gun_cock": preload("res://WEAPON CLICK Reload Mechanism 01.wav")
+	"gun_cock": preload("res://WEAPON CLICK Reload Mechanism 01.wav"),
+	"button_click": preload("res://assets/Music/Button Click.wav")
 }
 
 # The simple audio player scene
