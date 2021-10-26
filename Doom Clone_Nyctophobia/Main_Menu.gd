@@ -100,3 +100,8 @@ func set_mouse_and_joypad_sensitivity():
 	globals.mouse_sensitivity = $Options_Menu/HSlider_Mouse_Sensitivity.value
 	globals.joypad_sensitivity = $Options_Menu/HSlider_Joypad_Sensitivity.value
 	#globals.mouse_position
+
+
+func _on_Button_Start_pressed():
+	$Buttonsound.play()
+	pass # Replace with function body.

@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/Ruin_Level_Objects/RuinsThumbnail.png" type="Texture" id=6]
 [ext_resource path="res://assets/Images/main loading screen.jpg" type="Texture" id=7]
 [ext_resource path="res://assets/Music/Main theme..wav" type="AudioStream" id=8]
-[ext_resource path="res://Button_Sound.gd" type="Script" id=9]
+[ext_resource path="res://assets/Music/Button Click.wav" type="AudioStream" id=9]
 
 [sub_resource type="PanoramaSky" id=1]
 radiance_size = 0
@@ -78,9 +78,12 @@ space_level_scene = "res://assets/Space_Level_Objects/Space_Level.tscn"
 ruins_level_scene = "res://assets/Ruin_Level_Objects/Ruins_Level.tscn"
 doom_level_scene = "res://Doom_Clone.tscn"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="Menu Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
 autoplay = true
+
+[node name="Buttonsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
 
 [node name="Background_Animation" type="Spatial" parent="."]
 
@@ -139,7 +142,6 @@ margin_right = 155.0
 margin_bottom = -200.0
 custom_fonts/font = SubResource( 5 )
 text = "Start game"
-script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -422,3 +424,4 @@ margin_right = 155.0
 margin_bottom = -20.0
 custom_fonts/font = SubResource( 5 )
 text = "Back"
+[connection signal="pressed" from="Start_Menu/Button_Start" to="." method="_on_Button_Start_pressed"]
