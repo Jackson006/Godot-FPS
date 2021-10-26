@@ -105,3 +105,15 @@ func set_mouse_and_joypad_sensitivity():
 func _on_Button_Start_pressed():
 	$Buttonsound.play()
 	pass # Replace with function body.
+
+func _on_Button_Open_Godot_pressed():
+	$Buttonsound.play()
+	pass # Replace with function body.
+
+func _on_Button_Options_pressed():
+	$Buttonsound.play()
+	pass # Replace with function body.
+
+func _on_Button_Quit_pressed():
+	$Buttonsound.play()
+	pass # Replace with function body.

@@ -181,6 +181,9 @@ margin_right = 155.0
 margin_bottom = -20.0
 custom_fonts/font = SubResource( 5 )
 text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level_Select_Menu" type="Panel" parent="."]
 visible = false
@@ -425,3 +428,6 @@ margin_bottom = -20.0
 custom_fonts/font = SubResource( 5 )
 text = "Back"
 [connection signal="pressed" from="Start_Menu/Button_Start" to="." method="_on_Button_Start_pressed"]
+[connection signal="pressed" from="Start_Menu/Button_Open_Godot" to="." method="_on_Button_Open_Godot_pressed"]
+[connection signal="pressed" from="Start_Menu/Button_Options" to="." method="_on_Button_Options_pressed"]
+[connection signal="pressed" from="Start_Menu/Button_Quit" to="." method="_on_Button_Quit_pressed"]
