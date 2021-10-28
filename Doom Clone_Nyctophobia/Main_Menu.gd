@@ -17,6 +17,7 @@ func _ready():
 	start_menu = $Start_Menu
 	level_select_menu = $Level_Select_Menu
 	options_menu = $Options_Menu
+	# resets the player's score to zero
 	Globals.playerScore = 0
 	
 	# Connect all of the start menu buttons

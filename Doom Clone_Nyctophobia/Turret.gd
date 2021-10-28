@@ -134,6 +134,7 @@ func _physics_process(delta):
 	
 	# If we are broken, then we need to wait until we are repaired
 	if turret_health <= 0:
+		# adds 0.0833 to the player's score when a turret is destroyed and displays the player's score in the output
 		Globals.playerScore += 0.0833
 		print(Globals.playerScore)
 		# If we are repairing, then subtract delta from destroyed_timer.

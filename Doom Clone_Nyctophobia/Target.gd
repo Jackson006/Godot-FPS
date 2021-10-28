@@ -33,6 +33,7 @@ func _physics_process(delta):
 	# If the target respawn timer is more than 0, then we're currently disabled and need
 	# to reduce time from the timer so we can respawn
 	if target_respawn_timer > 0:
+		# When the target's health is reduced to zero the player will be tranported to the credits
 		get_tree().change_scene("res://Win scene.tscn")
 		target_respawn_timer -= delta
 		
@@ -56,6 +57,7 @@ func bullet_hit(damage, bullet_hit_pos):
 	
 	# If we're at 0 health or below, we need to spawn the broken target scene
 	if current_health <= 0:
+		# adds 100 to the player's score when a target is destroyed and displays the player's score in the output
 		Globals.playerScore += 100
 		print(Globals.playerScore)
 		# Instance the scene and add it as a child of the broken target holder
